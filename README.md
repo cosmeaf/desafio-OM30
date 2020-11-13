@@ -1,6 +1,13 @@
 # Desafio - Vaga - Pessoa Desenvolvedora FullStack PHP
 
-One Paragraph of project description goes here
+
+Desafio OM30 para a vaga Pessoa Desenvolvedora FullStack PHP!
+
+Mais importante do que dizer quem somos, é dizer no que acreditamos. A OM30 é uma empresa que acredita na inovação como a melhor forma de trazer qualidade de vida às pessoas.
+
+Pensando nisso, nosso teste para essa oportunidade, elaboramos um pequeno projeto desafio para conhecermos um pouco de sua experiência ;)
+
+
 
 ## Getting Started
 
