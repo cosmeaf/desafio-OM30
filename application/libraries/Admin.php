@@ -15,6 +15,9 @@ class Admin {
 
 			// Load footer
 		$CI->load->view('admin/footer',$data);
+
+			// Scripts
+		$CI->load->view('admin/scripts',$data);
 	}
 
 	

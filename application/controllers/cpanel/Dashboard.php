@@ -18,6 +18,7 @@ class Dashboard extends CI_Controller {
 	function index(){
     // Allowing akses to admin only
 		if($this->session->userdata('role_id') == 1){
+			$data["scripts"] = ["util.js"];
 			$data['title'] = "Dashboard - SISCAO";
 			$this->admin->show('admin/home', $data);
 		}else{

@@ -19,8 +19,16 @@
   <link href="<?= base_url();?>assets/css/sb-admin-2.min.css" rel="stylesheet">
   <!-- Custom styles for this page -->
   <link href="<?= base_url();?>assets/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
+  <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
   <!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css"> -->
 
+  <?php if (isset($styles)) {
+    foreach ($styles as $style_name) {
+      $href = base_url() . "asstes/css/" . $style_name; ?>
+      <link rel="stylesheet" href="<?=$href?>">
+    <?php }
+  } ?>
 </head>
 
 <body id="page-top">
@@ -61,13 +69,13 @@
         <li class="nav-item">
           <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePatients" aria-expanded="true" aria-controls="collapsePatients">
             <i class="fas fa-fw fa-users-cog"></i>
-            <span>Management Patients</span>
+            <span>Genrenciar Pacientes</span>
           </a>
           <div id="collapsePatients" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-              <h6 class="collapse-header">Custom users:</h6>
-              <a class="collapse-item" href="<?= base_url()?>dashboard/patients">Patients List</a>
-              <a class="collapse-item" href="">Cards</a>
+              <h6 class="collapse-header">Pacientes:</h6>
+              <a class="collapse-item" href="<?= base_url()?>dashboard/patients">Listar Pacientes</a>
+              <a class="collapse-item" href="<?= base_url();?>dashboard/patients/register">Cadastrar Pacientes</a>
             </div>
           </div>
         </li>
@@ -75,13 +83,13 @@
         <li class="nav-item">
           <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
             <i class="fas fa-fw fa-cog"></i>
-            <span>Configurações</span>
+            <span>Gerenciar Usuários</span>
           </a>
           <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-              <h6 class="collapse-header">Custom Components:</h6>
-              <a class="collapse-item" href="">Buttons</a>
-              <a class="collapse-item" href="">Cards</a>
+              <h6 class="collapse-header">Usuários:</h6>
+              <a class="collapse-item" href="<?= base_url();?>dashboard/users">Listar Usuários</a>
+              <a class="collapse-item" href="<?= base_url();?>dashboard/users/register">Cadastrar Usuários</a>
             </div>
           </div>
         </li>

@@ -10,6 +10,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.css">
 	<title>Document</title>
+
+	<?php if (isset($styles)) {
+		foreach ($styles as $style_name) {
+			$href = base_url() . "assets/css/" . $style_name; ?>
+			<link rel="stylesheet" href="<?=$href?>">
+		<?php }
+	} ?>
 </head>
 <body>
 	<div class="continer">
@@ -57,6 +64,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/js/all.min.js"></script>
-		  <script src="<?= base_url();?>assets/js/utilidades.js"></script>
+		<script src="<?= base_url();?>assets/js/util.js"></script>
+
+		<?php if (isset($scripts)) {
+			foreach ($scripts as $script_name) {
+				$src = base_url() . "assets/js/" . $script_name; ?>
+				<script src="<?=$src?>"></script>
+			<?php }
+		} ?>
 	</body>
 	</html>

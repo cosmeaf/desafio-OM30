@@ -6,7 +6,7 @@ class Auth extends CI_Controller {
 	public function __construct(){
 		parent::__construct();
 		$this->load->model('auth_model');
-		//$this->output->enable_profiler(TRUE);
+
 	}
 
 	private function logged_in(){
@@ -16,6 +16,7 @@ class Auth extends CI_Controller {
 	}
 
 	public function login(){
+		$data["scripts"] = ["util.js"];
 		$data['title'] = "Login Page";
 		$this->form_validation->set_rules('email', 'email', 'trim|required|valid_emails|valid_email');
 		$this->form_validation->set_rules('password', 'password', 'trim|required|min_length[6]');
@@ -74,6 +75,7 @@ class Auth extends CI_Controller {
 
 
 	public function register(){
+		$data["scripts"] = ["util.js"];
 		$data['title'] = "Register Page";
 		$this->form_validation->set_rules('name', 'name', 'trim|required|min_length[5]|max_length[50]');
 		$this->form_validation->set_rules('email', 'email', 'trim|required|valid_emails|valid_email|is_unique[tbl_users.email]', ['is_unique' => 'E-mail já cadastrado em base de dados']);
@@ -97,16 +99,19 @@ class Auth extends CI_Controller {
 	} // End User Register
 
 	public function recovery(){
+		$data["scripts"] = ["util.js"];
 		$data['title'] = "Recovery Page";
 		$this->load->view('auth/recovery', $data);
 	}
 
 	public function logout(){
+		$data["scripts"] = ["util.js"];
 		$data['title'] = "Login Page";
 		$this->session->sess_destroy();
 		$this->session->set_flashdata('success', 'Sua sessão foi encerrada! ');
-		$this->load->view('auth/login', $data);
+		redirect('login', $data);
 	}
+
 
 } // End Controller
 

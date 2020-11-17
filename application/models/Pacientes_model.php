@@ -9,10 +9,8 @@ class Pacientes_model extends CI_Model {
 		parent::__construct();
 	}
 
-
 	function insert(){
 		//echo "<pre>";print_r(cnes1($cnes));die();
-
 		$data = [
 			'name' => html_escape($this->input->post('name')),
 			'nomemae' => html_escape($this->input->post('nomemae')),
@@ -35,22 +33,49 @@ class Pacientes_model extends CI_Model {
 		return  $insert_id;
 	}
 
-	public function get_all() {
+	function get_all() {
 		return $this->db->get($this->table)
 		->result_array();
 	}
 	
-	function get_all_id(){
-		$cpf = $this->security->xss_clean(html_escape($this->input->post('cpf')));
-
-		$query = $this->db->get_where($this->table, ['cpf' => $cpf]);
-
-		if ($query->num_rows() > 0) {
-			return $query->row_array();
-		} else {
-			return 0;
-		}
+	function get_by_id($id){
+		return $this->db->get_where($this->table, array('id' => $id))
+		->row_array();
 	}
+
+	function update($id) {
+		$data = [
+			'id' => html_escape($this->input->post('id')),
+			'name' => html_escape($this->input->post('name')),
+			'nomemae' => html_escape($this->input->post('nomemae')),
+			'cpf' => html_escape($this->input->post('cpf')),
+			'cnes' => html_escape($this->input->post('cnes')),
+			'nascimento' => html_escape($this->input->post('nascimento')),
+			'cep' => html_escape($this->input->post('cep')),
+			'logradouro' => html_escape($this->input->post('logradouro')),
+			'complemento' => html_escape($this->input->post('complemento')),
+			'localidade' => html_escape($this->input->post('localidade')),
+			'uf' => html_escape($this->input->post('uf')),
+			'email' => html_escape($this->input->post('email')),
+			'celular' => html_escape($this->input->post('celular')),
+			'telefone' => html_escape($this->input->post('telefone')),
+			'recado' => html_escape($this->input->post('recado')),
+			'imagem' => html_escape($this->input->post('imagem'))
+		];
+		//echo "<pre>";print_r($data);die();
+		$this->db->where('id', $id);
+		$this->db->update($this->table, $data);       
+	}
+
+	function delete($id) {
+		$this->db->where('id', $id);
+		$this->db->delete($this->table);
+	}
+
+	function uploadImage(){
+		
+	}
+	
 }
 
 /* End of file Pacientes_model.php */

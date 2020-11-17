@@ -9,10 +9,11 @@ class Patients extends CI_Controller {
 	}
 
 
-	function index(){
-    // Allowing akses to admin only
+	public function index(){
+    // Allowing akses to admin only 
 		if($this->session->userdata('role_id') == 1){
 			$data['title'] = "Dashboard - SISCAO";
+			$data["scripts"] = ["util.js"];
 			$data['user'] = $this->pacientes_model->get_all();
 			//echo "<pre>";print_r($user);die();
 			$this->admin->show('admin/list_patients', $data);
@@ -21,8 +22,9 @@ class Patients extends CI_Controller {
 		}
 	}
 
-	function register(){
+	public function register(){
     // Allowing akses to admin only
+		$data["scripts"] = ["util.js"];
 		if($this->session->userdata('role_id') == 1){
 			$data['title'] = "Dashboard - SISCAO";
 			$this->form_validation->set_rules('name', 'nome', 'trim|required|min_length[10]|max_length[50]');
@@ -42,12 +44,13 @@ class Patients extends CI_Controller {
 			$this->form_validation->set_error_delimiters('<div class="error text-danger mt-2" style="font-size:12px;">', '</div>');
 
 			if ($this->form_validation->run() == FALSE) {
-				$this->session->set_flashdata('danger', validation_errors());
+				//$this->session->set_flashdata('danger', validation_errors());
 				$this->admin->show('admin/insert_patients', $data);
 			} else {
 				//echo "<pre>";print_r(cpf_verify($cpf));die();
 				$this->pacientes_model->insert();
-				echo "Dados Cadastrados com sucesso";
+				// echo "Dados Cadastrados com sucesso";
+				$this->session->set_flashdata('success', 'Paciente Cadastrado com sucesso');
 				redirect('dashboard/patients');
 			}
 			
@@ -56,17 +59,55 @@ class Patients extends CI_Controller {
 		}
 	}
 
-	function edit(){
-    // Allowing akses to admin only
-		if($this->session->userdata('role_id') == 1){
-			$data['title'] = "Dashboard - SISCAO";
-			$this->admin->show('admin/edit_patients', $data);
-		}else{
-			echo "Access Denied";
+	public function edit($id){
+		$data["scripts"] = ["util.js"];
+		$data['title'] = 'Pagina de Ediçao';
+		$data['user'] = $this->pacientes_model->get_by_id($id);
+		$this->admin->show('admin/edit_patients', $data);
+	}
+
+	public function update() {
+		$this->form_validation->set_rules('id', 'id');
+		$this->form_validation->set_rules('name', 'name', 'trim|required|min_length[10]|max_length[50]');
+		$this->form_validation->set_rules('nomemae', 'nomemae', 'trim|required|min_length[5]|max_length[50]');
+		$this->form_validation->set_rules('cpf', 'cpf', 'trim|required|min_length[11]|max_length[11]');
+		$this->form_validation->set_rules('cnes', 'cnes', 'trim|required|min_length[15]|max_length[15]');
+		$this->form_validation->set_rules('nascimento', 'nascimento', 'trim|required|min_length[10]|max_length[10]');
+		$this->form_validation->set_rules('cep', 'cep', 'trim|required|min_length[8]|max_length[9]');
+		$this->form_validation->set_rules('logradouro', 'logradouro', 'trim|required|min_length[5]|max_length[250]');
+		$this->form_validation->set_rules('complemento', 'complemento', 'trim|required|min_length[10]|max_length[128]');
+		$this->form_validation->set_rules('localidade', 'cidade', 'trim|required|min_length[5]|max_length[128]');
+		$this->form_validation->set_rules('uf', 'uf', 'trim|required|min_length[2]|max_length[2]');
+		$this->form_validation->set_rules('email', 'Email', 'required|valid_email');
+		$this->form_validation->set_rules('celular', 'celular', 'trim|required|min_length[5]|max_length[12]');
+		$this->form_validation->set_rules('telefone', 'telefone', 'trim');
+		$this->form_validation->set_rules('recado', 'recado', 'trim');
+		$this->form_validation->set_error_delimiters('<div class="error text-danger" style="font-size:12px;">', '</div>');
+
+		if ($this->form_validation->run() == FALSE) {
+			$this->session->set_flashdata('danger', alidation_errors());
+			$this->admin->show('admin/edit_user');
+		} else {
+			$id = html_escape($this->input->post('id'));
+			$this->pacientes_model->update($id);
+			$this->session->set_flashdata('success', 'Paciente Atualizado com sucesso');
+			redirect('dashboard/patients');
 		}
 	}
 
+	public function delete($id){
+		$id = $this->uri->segment(4);
+		if (empty($id)){
+			show_404();
+		} 
+		$data["scripts"] = ["util.js"];
+		$data['user'] = $this->pacientes_model->delete($id);
+		$this->session->set_flashdata('success', 'Paciente deletado com sucesso');
+		redirect(base_url('dashboard/patients'));
+	}
+
 }
+
 
 /* End of file Patients.php */
 /* Location: ./application/controllers/cpanel/Patients.php */
