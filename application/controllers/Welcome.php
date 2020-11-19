@@ -16,7 +16,7 @@ class Welcome extends CI_Controller {
 		//$post = $this->input->post(null, TRUE);
 		//echo "<pre>";var_dump($post);
 		$config['upload_path'] = APPPATH . 'uploads';
-		$config['allowed_types'] = 'gif|jpg|png|jpeg|html|pdf';
+		$config['allowed_types'] = 'gif|jpg|png|jpeg';
 		$config['max_size'] = 0;
 		$config['max_width']  = 0;
 		$config['max_height']  = 0;
@@ -45,27 +45,34 @@ class Welcome extends CI_Controller {
 	}
 
 	public function validaCns(){
-		$cns = 281754610270008;
-		// CNSs definitivos começam em 1 ou 2 / CNSs provisórios em 7, 8 ou 9
-		if (preg_match("/[1-2][0-9]{10}00[0-1][0-9]/", $cns) || preg_match("/[7-9][0-9]{14}/", $cns)) {
-			//return $this->somaPonderadaCns($cns) % 11 == 0;
-			for ($i = 0; $i < mb_strlen($cns); $i++) {
-				echo gettype($cns[$i]);
-			//$soma += $cns[$i] * (15 - $i);
+		$cns = $this->input->post('cns');
+		//echo "<pre>";var_dump($cns);die();
+		$validator1 = '/^[1-2][0-9]{10}00[0-1][0-9]$/';
+		$validator2 = '/^[7-9][0-9]{14}$/';
+        // CNSs definitivos começam em 1 ou 2 / CNSs provisórios em 7, 8 ou 9
+		if (preg_match($validator1, $cns) || preg_match($validator2, $cns) ) {
+			$result = $this->somaPonderadaCns($cns) % 11 == 0;
+			//echo "<pre>";var_dump($result);die();
+			if ($result) {
+				echo "Numero Valido";
+				$this->load->view('admin/list_imagem');
+			}else{
+				echo "Numero invalido";
+				$this->load->view('admin/list_imagem');
 			}
 		}
-
+		return false;
 	}
 
-	private function somaPonderadaCns($cns){
+
+	private function somaPonderadaCns($cns): int{
 		$soma = 0;
+
 		for ($i = 0; $i < mb_strlen($cns); $i++) {
-			echo $cns[$i];
-			//$soma += $cns[$i] * (15 - $i);
+			$soma += $cns[$i] * (15 - $i);
 		}
+
 		return $soma;
 	}
 
 }
-
-

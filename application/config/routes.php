@@ -23,6 +23,8 @@ $route['logout'] 		= 'auth/logout';
 
 // CONTROLLER DASHBOARD
 $route['dashboard']  	= 'cpanel/dashboard';
+$route['dashboard/version']  	= 'cpanel/dashboard/version';
+
 
 // CONTROLLER USERS
 $route['dashboard/users']  	= 'cpanel/users';

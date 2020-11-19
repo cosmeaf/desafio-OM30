@@ -36,10 +36,13 @@ class Users_model extends CI_Model {
 		->row_array();
 	}
 
-	function update($id) {
-		$image = html_escape($this->input->post('image'));
+	function update($id, $image) {
+		//$image = html_escape($this->input->post('image'));
+		//echo "<pre>";var_dump($image);die();
 		if (empty($image)) {
-			$image = 'defaule.png';
+			$image = 'default.png';
+		}else{
+			$image = $image;
 		}
 		$data = [
 			'id' => html_escape($this->input->post('id')),
@@ -48,7 +51,7 @@ class Users_model extends CI_Model {
 			'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
 			'role_id' => html_escape($this->input->post('role_id')),
 			'is_active' => html_escape($this->input->post('is_active')),
-			'created_at' => date('Y-m-d H:i:s.u'),
+			'created_at' => date('Y-m-d'),
 			'image' => $image,
 			'token' => '0'
 		];
@@ -61,8 +64,6 @@ class Users_model extends CI_Model {
 		$this->db->where('id', $id);
 		$this->db->delete($this->table);
 	}
-
-
 
 	
 }

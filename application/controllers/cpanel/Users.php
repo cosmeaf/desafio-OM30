@@ -61,6 +61,8 @@ class Users extends CI_Controller {
 	}
 
 	public function update() {
+		$image = $this->do_upload();
+		//echo "<pre>";var_dump($image);die();
 		$this->form_validation->set_rules('id', 'id', 'trim|min_length[1]|max_length[10]');
 		$this->form_validation->set_rules('name', 'name', 'trim|min_length[5]|max_length[50]');
 		$this->form_validation->set_rules('email', 'email', 'trim|valid_emails|valid_email');
@@ -68,6 +70,7 @@ class Users extends CI_Controller {
 		$this->form_validation->set_rules('is_active', 'Status', 'trim');
 		$this->form_validation->set_rules('password', 'password', 'trim|min_length[6]|matches[password]', ['matches' => 'Password não confere!', 'min_length' => 'Password muito curto']);
 		$this->form_validation->set_rules('passconf', 'repeat password', 'trim|matches[password]', ['matches' => 'Password não confere!']);
+		$this->form_validation->set_rules('imagem', 'imagem');
 		$this->form_validation->set_error_delimiters('<div class="error text-danger" style="font-size:12px;">', '</div>');
 
 		if ($this->form_validation->run() == FALSE) {
@@ -75,7 +78,8 @@ class Users extends CI_Controller {
 			$this->admin->show('admin/edit_users');
 		} else {
 			$id = html_escape($this->input->post('id'));
-			$this->users_model->update($id);
+			//echo "<pre>";var_dump($image);
+			$this->users_model->update($id, $image);
 			$this->session->set_flashdata('success', 'Paciente Atualizado com sucesso');
 			redirect('dashboard/users');
 		}
@@ -92,9 +96,59 @@ class Users extends CI_Controller {
 		redirect(base_url('dashboard/users'));
 	}
 
-	
+	private function do_upload(){
+		//$post = $_FILES['choose-file'];
+		//$post = $this->input->post(null, TRUE);
+		//echo "<pre>";var_dump($post);
+		$config['upload_path'] =  './assets/img';
+		$config['allowed_types'] = 'gif|jpg|png|jpeg|JPEG|JPG|PNG|GIF';
+		$config['max_size'] = 0;
+		$config['max_width']  = 0;
+		$config['max_height']  = 0;
+		$config['file_ext_tolower']  = TRUE;
+		$config['overwrite']  = TRUE;
+		$config['max_filename']  = 0;
+		$config['encrypt_name']  = FALSE;
+		$config['remove_spaces']  = TRUE;
+		$config['detect_mime']  = TRUE;
+		$config['mod_mime_fix']  = TRUE;
 
-}
+		//echo "<pre>";var_dump($config);
+
+		$this->upload->initialize($config);
+
+		$this->load->library('upload', $config);
+		
+		if ( ! $this->upload->do_upload('imagem')){
+			$error = array('error' => $this->upload->display_errors());
+		}
+		else{
+			//$data = array('upload_data' => $this->upload->data());
+			$data = $this->upload->data();
+			$name = $data['file_name'];
+			return $name;
+		}
+	}
+
+	public function foto(){
+		$config['upload_path'] = './uploads/';
+		$config['allowed_types'] = 'gif|jpg|png';
+		$config['max_size']  = '100';
+		$config['max_width']  = '1024';
+		$config['max_height']  = '768';
+		
+		$this->load->library('upload', $config);
+		
+		if ( ! $this->upload->do_upload()){
+			$error = array('error' => $this->upload->display_errors());
+		}
+		else{
+			$data = array('upload_data' => $this->upload->data());
+			echo "success";
+		}
+	}
+
+} // End Controller Users
 
 /* End of file Users.php */
 /* Location: ./application/controllers/cpanel/Users.php */

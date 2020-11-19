@@ -1,3 +1,13 @@
+        <style>
+          #preview{
+            width: 100px;
+            height: 100px;
+            background: #c2c2c2;
+            border: 1px solid #ccc;
+            box-shadow: 5px 5px 5px #ccc;
+          }
+        </style>
+
         <!-- Begin Page Content -->
         <div class="container-fluid">
 
@@ -50,12 +60,13 @@
                  <?php if (!empty($user)) :?>
                   <?php foreach ($user as $row) : ?>
                     <tr>
-                      <td><?= character_limiter($row['image'], 20); ?></td>
+                      <td><img id="preview" src="<?= base_url('assets/img/' . $row['image']);?>">
+</td>
                       <td><?= $row['name']; ?></td>
                       <td><?= $row['email']; ?></td>
                       <td><?= ($row['role_id'] == 1) ? 'Administrador' : 'Funcionário' ?></td>
                       <td><?= ($row['is_active'] == 1)? 'Ativo' : 'Inativo' ?></td>
-                      <td><?= data('d/m/Y', character_limiter($row['created_at'], 11)); ?></td>
+                      <td><?= data('d/m/Y',$row['created_at'] ); ?></td>
                       <td>
                         <a href="<?= base_url('dashboard/users/edit/' . $row['id']);?>" class="btn btn-sm btn-primary"><i class="far fa-edit"></i></a>
                         <a href="<?= base_url('dashboard/users/delete/' . $row['id']);?>" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#delete">
@@ -101,3 +112,16 @@
     </div>
   </div>
 </div>
+
+<script>
+  function readImage() {
+    if (this.files && this.files[0]) {
+      var file = new FileReader();
+      file.onload = function(e) {
+        document.getElementById("preview").src = e.target.result;
+      };       
+      file.readAsDataURL(this.files[0]);
+    }
+  }
+  document.getElementById("imagem").addEventListener("change", readImage, false);
+</script>

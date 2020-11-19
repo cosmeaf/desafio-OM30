@@ -103,10 +103,7 @@
           <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
               <h6 class="collapse-header">Custom Utilities:</h6>
-              <a class="collapse-item" href="">Colors</a>
-              <a class="collapse-item" href="">Borders</a>
-              <a class="collapse-item" href="">Animations</a>
-              <a class="collapse-item" href="">Other</a>
+              <a class="collapse-item" href="<?= base_url();?>dashboard/version">Migrations</a>
             </div>
           </div>
         </li>
