@@ -1,6 +1,6 @@
 # Desafio - Vaga - Pessoa Desenvolvedora FullStack PHP
 
-# Para Acesso a base de dados postgres, é necessário adicinar linhas abaixo (application\config\database.php)
+- Para Acesso a base de dados postgres, é necessário adicinar linhas abaixo (application\config\database.php)
 
 $db['default'] = array(
 	'dsn'	=> '',
@@ -26,13 +26,13 @@ $db['default'] = array(
 );
 
 
-# Utilizar migrations;
+- Utilizar migrations;
 
 Após criação e configuração dos arquivos de migrations do Codeigniter, foi versionado duas tabelas para projeto OM30.
 
 Conforme arquivo localizado em (application\config\migration.php) linha 73.
 $config['migration_version'] = 002;
 
-# Modelo Padrão
+- Modelo Padrão
 A versão 001 é para a tables = "tbl_users"
 A versão 002 é para a tables = "tbl_pacientes"
