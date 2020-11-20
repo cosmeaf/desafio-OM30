@@ -78,11 +78,12 @@ class Users extends CI_Controller {
 			$this->admin->show('admin/edit_users');
 		} else {
 			$id = html_escape($this->input->post('id'));
-			//echo "<pre>";var_dump($image);
+			//echo "<pre>";var_dump($image);die();
 			$this->users_model->update($id, $image);
 			$this->session->set_flashdata('success', 'Paciente Atualizado com sucesso');
 			redirect('dashboard/users');
 		}
+
 	}
 
 	public function delete($id){
@@ -97,9 +98,9 @@ class Users extends CI_Controller {
 	}
 
 	private function do_upload(){
-		//$post = $_FILES['choose-file'];
-		//$post = $this->input->post(null, TRUE);
-		//echo "<pre>";var_dump($post);
+	/*	$post = $_FILES['imagem']['name'];
+		$post = $this->input->post(null, TRUE);
+		echo "<pre>";var_dump($post);*/
 		$config['upload_path'] =  './assets/img';
 		$config['allowed_types'] = 'gif|jpg|png|jpeg|JPEG|JPG|PNG|GIF';
 		$config['max_size'] = 0;

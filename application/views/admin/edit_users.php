@@ -40,8 +40,9 @@
             <div class="form-group col-md-4">
               <!-- -->
               <label for="imagem">
-               <input id="imagem" type="file" name="imagem" style="display:none;"/>
+               <input id="imagem" type="file" name="imagem" style="display:none;" value="base_url('assets/img/' . $user['image']);?>"/>
                <img id="preview" src="<?= base_url('assets/img/' . $user['image']);?>">
+               <?php echo form_error("imagem")?>
              </label>
              <!-- -->
            </div>
@@ -72,20 +73,20 @@
             <label for="is_active">Status</label>
             <select id="is_active" class="form-control form-control-sm" name="is_active">
               <?php echo form_error("is_active")?>
-              <option value="0">Ativo</option>
-              <option value="1">Inativo</option>
+              <option value="1">Ativo</option>
+              <option value="0">Inativo</option>
             </select>
           </div>
         </div>
         <div class="form-row">
           <div class="form-group col-md-3">
             <label for="cpf">Password</label>
-            <input type="password" class="form-control form-control-sm" id="password" name="password" name="password">
+            <input type="password" class="form-control form-control-sm" id="password" name="password" value="<?= $user['password'];?>">
             <?php echo form_error("password")?>
           </div>
           <div class="form-group col-md-3">
             <label for="passconf">Confirmar Password</label>
-            <input type="password" class="form-control form-control-sm" id="passconf" name="passconf" name="passconf">
+            <input type="password" class="form-control form-control-sm" id="passconf" name="passconf" value="<?= $user['password'];?>" >
             <?php echo form_error("passconf")?>
           </div>
         </div>

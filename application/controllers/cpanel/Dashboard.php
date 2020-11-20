@@ -7,6 +7,7 @@ class Dashboard extends CI_Controller {
 
 	public function __construct(){
 		parent::__construct();
+		$this->load->model('users_model');
 		$this->logged_in();
 	}
 
@@ -21,6 +22,7 @@ class Dashboard extends CI_Controller {
 		if($this->session->userdata('role_id') == 1){
 			$data["scripts"] = ["util.js"];
 			$data['title'] = "Dashboard - SISCAO";
+			$data['user'] = $this->users_model->get_all();
 			$this->admin->show('admin/home', $data);
 		}else{
 			echo "Access Denied";

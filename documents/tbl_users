@@ -1,0 +1,21 @@
+-- Table: public.tbl_users
+
+-- DROP TABLE public.tbl_users;
+
+CREATE TABLE public.tbl_users
+(
+    id integer NOT NULL,
+    name character varying(128) COLLATE pg_catalog."default",
+    password character varying(256) COLLATE pg_catalog."default",
+    role_id bigint,
+    is_active boolean,
+    created_at date,
+    image character varying(255) COLLATE pg_catalog."default",
+    token character varying(256) COLLATE pg_catalog."default",
+    CONSTRAINT tbl_users_pkey PRIMARY KEY (id)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE public.tbl_users
+    OWNER to postgres;

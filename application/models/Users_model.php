@@ -41,23 +41,23 @@ class Users_model extends CI_Model {
 		//echo "<pre>";var_dump($image);die();
 		if (empty($image)) {
 			$image = 'default.png';
-		}else{
-			$image = $image;
 		}
-		$data = [
-			'id' => html_escape($this->input->post('id')),
-			'name' => html_escape($this->input->post('name')),
-			'email' => html_escape($this->input->post('email')),			
-			'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
-			'role_id' => html_escape($this->input->post('role_id')),
-			'is_active' => html_escape($this->input->post('is_active')),
-			'created_at' => date('Y-m-d'),
-			'image' => $image,
-			'token' => '0'
-		];
+		if (empty($data)) {
+			$data = [
+				'id' => html_escape($this->input->post('id')),
+				'name' => html_escape($this->input->post('name')),
+				'email' => html_escape($this->input->post('email')),			
+				'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
+				'role_id' => html_escape($this->input->post('role_id')),
+				'is_active' => html_escape($this->input->post('is_active')),
+				'created_at' => date('Y-m-d'),
+				'image' => $image,
+				'token' => '0'
+			];
 		//echo "<pre>";print_r($data);die();
-		$this->db->where('id', $id);
-		$this->db->update($this->table, $data);       
+			$this->db->where('id', $id);
+			$this->db->update($this->table, $data); 
+		}
 	}
 
 	function delete($id) {
