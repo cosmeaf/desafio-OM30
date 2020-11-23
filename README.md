@@ -87,9 +87,10 @@ Após criação e configuração dos arquivos de migrations do Codeigniter, foi 
 Conforme arquivo localizado em (application\config\migration.php) linha 73.
 $config['migration_version'] = 002;
 
-# Modelo Padrão
-A versão 001 é para a tables = "tbl_users"
-A versão 002 é para a tables = "tbl_pacientes"
+### Modelo Padrão
+A versão 001 é para a tables = "tbl_users" (Usuário admin@admin.com + senha 123456), Como usuário padrão
+A versão 002 é para a tables = "tbl_group"
+A versão 003 é para a tables = "tbl_pacientes"
 ````
 
 ````
