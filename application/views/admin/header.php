@@ -40,8 +40,6 @@
     box-shadow: 5px 5px 5px #ccc;
     cursor: pointer;
     position: relative;
-    margin-top: 10%;
-    margin-left: 30%;
   }
 </style>
 <body id="page-top">

@@ -22,7 +22,7 @@
                         <?php } ?></div>
                       </div>
                       <div class="col-auto">
-                        <i class="fas fa-users-cog fa-2x text-gray-300"></i>
+                        <a href="<?= base_url()?>dashboard/users"><i class="fas fa-users-cog fa-3x text-gray-300"></i></a>
                       </div>
                     </div>
                   </div>
@@ -41,7 +41,7 @@
                           <?php } ?></div>
                         </div>
                         <div class="col-auto">
-                          <i class="fas fa-users fa-2x text-gray-300"></i>
+                          <a href="<?= base_url();?>dashboard/patients"><i class="fas fa-users fa-3x text-gray-300"></i></a>
                         </div>
                       </div>
                     </div>
@@ -62,7 +62,7 @@
                           </div>
                         </div>
                         <div class="col-auto">
-                          <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                         <a href=""> <i class="fas fa-clipboard-list fa-3x text-gray-300"></i></a>
                         </div>
                       </div>
                     </div>
@@ -79,7 +79,7 @@
                           <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
                         </div>
                         <div class="col-auto">
-                          <i class="fas fa-comments fa-2x text-gray-300"></i>
+                          <a href=""><i class="fas fa-comments fa-3x text-gray-300"></i></a>
                         </div>
                       </div>
                     </div>

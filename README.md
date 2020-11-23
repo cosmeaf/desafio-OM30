@@ -1,96 +1,142 @@
 # Desafio - Vaga - Pessoa Desenvolvedora FullStack PHP
 
-
-Desafio OM30 para a vaga Pessoa Desenvolvedora FullStack PHP!
-
-Mais importante do que dizer quem somos, é dizer no que acreditamos. A OM30 é uma empresa que acredita na inovação como a melhor forma de trazer qualidade de vida às pessoas.
-
-Pensando nisso, nosso teste para essa oportunidade, elaboramos um pequeno projeto desafio para conhecermos um pouco de sua experiência ;)
-
-
+- Para Acesso a base de dados postgres, é necessário adicinar linhas abaixo (application\config\database.php)
+Cadastro de pacientes
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+Desenvolver um cadastro de pacientes, do qual possamos testar toda sua capacidade de criação de arquitetura, qualidade do código, validações, elaboração de layout e usabilidade.
 
 ### Prerequisites
 
-What things you need to install the software and how to install them
+PHP utilizando o framework CodeIgniter 3.11. 
+Listagem de paciente, a qual permite a edição, visualização e delete de cada um dos pacientes.
+Utilização do banco de dados PostgreSQL 10;
+Utilização migrations;
 
-```
-Give examples
-```
+Cadastro de novos pacientes, contendo os campos, respectivas validações e máscaras:
+Foto do Paciente;
+Nome Completo do Paciente;
+Nome Completo da Mãe;
+Data Nascimento;
+Data de Nascimento;
+E-mail, Celular, Telefone, Recado
+CPF -sem validação;
+CNS (Cartão nacional de saúde) - Validação não implementado;
+Endereço completo: (Numero CEP Logradouro, Rua, Avenida Numero, Complemento Cidade Estado) - Com validação de CEP viacep.
 
 ### Installing
 
-A step by step series of examples that tell you how to get a development env running
-
-Say what the step will be
+Realizado instalação 
 
 ```
-Give the example
+CDNS:
+Bootstrap;
+popper;
+jquery;
+fontawesome.
 ```
 
-And repeat
-
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo
 
 ## Running the tests
 
-Explain how to run the automated tests for this system
+```
+- Não se aplica
+```
 
 ### Break down into end to end tests
 
-Explain what these tests test and why
-
 ```
-Give an example
+- Não se aplica
 ```
 
 ### And coding style tests
 
-Explain what these tests test and why
+Para Acesso a base de dados postgres, é necessário adicinar linhas abaixo (application\config\database.php)Explain what these tests test and why
 
 ```
-Give an example
-```
+$db['default'] = array(
+	'dsn'	=> '',
+	'hostname' => 'localhost',
+@@ -25,14 +78,85 @@ $db['default'] = array(
+	'port' => 5432
+);
 
+- Utilizar migrations;
+```
+````
+### Utilizar migrations;
+Após criação e configuração dos arquivos de migrations do Codeigniter, foi versionado duas tabelas para projeto OM30.
+Conforme arquivo localizado em (application\config\migration.php) linha 73.
+$config['migration_version'] = 002;
+- Modelo Padrão
+# Modelo Padrão
+A versão 001 é para a tables = "tbl_users" (Usuário admin@admin.com + senha 123456), Como usuário padrão
+
+A versão 002 é para a tables = "tbl_group"
+
+A versão 003 é para a tables = "tbl_pacientes"
+````
+
+````
+### Função de validaçao do CNES:
+public function validaCns(){
+		$cns = $this->input->post('cns');
+		//echo "<pre>";var_dump($cns);die();
+		$validator1 = '/^[1-2][0-9]{10}00[0-1][0-9]$/';
+		$validator2 = '/^[7-9][0-9]{14}$/';
+        // CNSs definitivos começam em 1 ou 2 / CNSs provisórios em 7, 8 ou 9
+		if (preg_match($validator1, $cns) || preg_match($validator2, $cns) ) {
+			$result = $this->somaPonderadaCns($cns) % 11 == 0;
+			//echo "<pre>";var_dump($result);die();
+			if ($result) {
+				echo "Numero Valido";
+				$this->load->view('admin/list_imagem');
+			}else{
+				echo "Numero invalido";
+				$this->load->view('admin/list_imagem');
+			}
+		}
+		return false;
+	}
+	private function somaPonderadaCns($cns): int{
+		$soma = 0;
+		for ($i = 0; $i < mb_strlen($cns); $i++) {
+			$soma += $cns[$i] * (15 - $i);
+		}
+		return $soma;
+	}
+````
 ## Deployment
 
-Add additional notes about how to deploy this on a live system
+Usado em XAMPP Apache (https://www.apachefriends.org/pt_br/index.html)
+Usado Bondo de Dados 
 
 ## Built With
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+* [Codeigniter](https://codeigniter.com/) - The PHP framework used
+* [SB Admin 2](https://startbootstrap.com/theme/sb-admin-2) - Dashboard Management
+
 
 ## Contributing
 
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
+- Não se aplica
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags).
+- Não se aplica
 
 ## Authors
 
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
+* **Cosme Alves** 
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+- Não se aplica
 
 ## Acknowledgments
 
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
-
-
+* Empresa OM30 e seus colaboradores:
+* Suzany Rocha Peixoto
+* Gustavo Miguelote

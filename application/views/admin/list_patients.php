@@ -3,7 +3,6 @@
                 width: 50px;
                 height: 50px;
                 background: #c2c2c2;
-                margin: 0 auto;
               }
             </style>
             <!-- Begin Page Content -->
@@ -58,7 +57,7 @@
                <?php if (!empty($user)) :?>
                 <?php foreach ($user as $row) : ?>
                   <tr>
-                    <td><img id="preview" src="<?= base_url('assets/img/' . $row['imagem']);?>"></td>
+                    <td><img id="preview" src="<?= base_url('assets/img/' . $row['imagem']);?>" ></td>
                     <td><?= character_limiter($row['name'], 20); ?></td>
                     <td><?= $row['nomemae']; ?></td>
                     <td><?= $row['cpf']; ?></td>

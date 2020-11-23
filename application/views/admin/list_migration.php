@@ -15,7 +15,8 @@
             </p>
             <p> # Modelo Padrão</p>
             <p> A versão 001 é para a tables = "tbl_users"</p>
-            <p>  A versão 002 é para a tables = "tbl_pacientes" </p>
+            <p>  A versão 002 é para a tables = "tbl_group" </p>
+            <p>  A versão 003 é para a tables = "tbl_pacientes" </p>
           </div>
           <div class="card">
             <div class="row">
