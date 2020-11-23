@@ -33,6 +33,11 @@ class Pacientes_model extends CI_Model {
 		return  $insert_id;
 	}
 
+	function some_model_function() {	
+		$this->db->from($this->table);
+		return $num_rows = $this->db->count_all_results();
+	}
+
 	function get_all() {
 		return $this->db->get($this->table)
 		->result_array();

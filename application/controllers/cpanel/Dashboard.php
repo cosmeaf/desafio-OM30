@@ -8,6 +8,7 @@ class Dashboard extends CI_Controller {
 	public function __construct(){
 		parent::__construct();
 		$this->load->model('users_model');
+		$this->load->model('pacientes_model');
 		$this->logged_in();
 	}
 
@@ -23,7 +24,8 @@ class Dashboard extends CI_Controller {
 			$data["scripts"] = ["util.js"];
 			$data['title'] = "Dashboard - SISCAO";
 			$data['user'] = $this->users_model->get_all();
-			$data['num_results'] = $this->users_model->some_model_function();
+			$data['user_results'] = $this->users_model->some_model_function();
+			$data['patients_results'] = $this->pacientes_model->some_model_function();
 			//var_dump($_SESSION);die();
 			$this->admin->show('admin/home', $data);
 		}else{
