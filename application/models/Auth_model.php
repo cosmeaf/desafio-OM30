@@ -16,8 +16,8 @@ class Auth_model extends CI_Model {
 			'name' => html_escape($this->input->post('name')),
 			'email' => html_escape($this->input->post('email')),			
 			'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
-			'role_id' => 1,
-			'is_active' => 1,
+			'role_id' => 2,
+			'is_active' => 0,
 			'created_at' => date('Y-m-d H:i:s.u'),
 			'image' => 'default.png',
 			'token' => '0'

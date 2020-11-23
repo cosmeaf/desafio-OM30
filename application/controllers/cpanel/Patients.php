@@ -67,6 +67,7 @@ class Patients extends CI_Controller {
 	}
 
 	public function update() {
+		$data['user'] = $this->pacientes_model->get_all();
 		$this->form_validation->set_rules('id', 'id');
 		$this->form_validation->set_rules('name', 'name', 'trim|required|min_length[10]|max_length[50]');
 		$this->form_validation->set_rules('nomemae', 'nomemae', 'trim|required|min_length[5]|max_length[50]');
@@ -85,13 +86,61 @@ class Patients extends CI_Controller {
 		$this->form_validation->set_error_delimiters('<div class="error text-danger" style="font-size:12px;">', '</div>');
 
 		if ($this->form_validation->run() == FALSE) {
-			$this->session->set_flashdata('danger', alidation_errors());
-			$this->admin->show('admin/edit_user');
+			$this->session->set_flashdata('danger', validation_errors());
+			$this->admin->show('admin/list_patients', $data);
 		} else {
 			$id = html_escape($this->input->post('id'));
 			$this->pacientes_model->update($id);
 			$this->session->set_flashdata('success', 'Paciente Atualizado com sucesso');
 			redirect('dashboard/patients');
+		}
+	}
+
+	public function updateImage(){
+		$image = $this->do_upload();
+		$this->form_validation->set_rules('id', 'id', 'trim|required');
+		$this->form_validation->set_rules('imagem', 'imagem');
+		$this->form_validation->set_error_delimiters('<div class="error text-danger" style="font-size:12px;">', '</div>');
+		if ($this->form_validation->run() == FALSE) {
+			$this->session->set_flashdata('danger', validation_errors());
+			$this->admin->show('admin/edit_patients', $data);
+		} else {
+			//echo "<pre>";var_dump($image);die();
+			$id = html_escape($this->input->post('id'));
+			$this->pacientes_model->updateImage($id, $image);
+			$this->session->set_flashdata('success', 'Foto Atualizado com sucesso');
+			redirect('dashboard/patients');
+		}
+	}
+
+	private function do_upload(){
+		$config['upload_path'] = APPPATH . './uploads/';
+		$config['allowed_types'] = 'gif|jpg|png|jpeg|JPEG|JPG|PNG|GIF';
+		$config['max_size'] = 0;
+		$config['max_width']  = 0;
+		$config['max_height']  = 0;
+		$config['file_ext_tolower']  = TRUE;
+		$config['overwrite']  = TRUE;
+		$config['max_filename']  = 0;
+		$config['encrypt_name']  = FALSE;
+		$config['remove_spaces']  = TRUE;
+		$config['detect_mime']  = TRUE;
+		$config['mod_mime_fix']  = TRUE;
+
+		//echo "<pre>";var_dump($config);
+
+		$this->upload->initialize($config);
+
+		$this->load->library('upload', $config);
+		
+		if ( ! $this->upload->do_upload('imagem')){
+			$error = array('error' => $this->upload->display_errors());
+		}
+		else{
+			//$data = array('upload_data' => $this->upload->data());
+			$data = $this->upload->data();
+			$name = $data['file_name'];
+			return $name;
 		}
 	}
 

@@ -31,6 +31,8 @@ $route['dashboard/users']  	= 'cpanel/users';
 $route['dashboard/users/register']  = 'cpanel/users/register';
 $route['dashboard/users/edit/(:num)']  = 'cpanel/users/edit/$1';
 $route['dashboard/users/update']  = 'cpanel/users/update';
+$route['dashboard/users/updatePassword']  = 'cpanel/users/updatePassword';
+$route['dashboard/users/updateImage']  = 'cpanel/users/updateImage';
 $route['dashboard/users/delete/(:any)']  = 'cpanel/users/delete/$1';
 
 // PATIENTS MANAGEMENT
@@ -38,6 +40,7 @@ $route['dashboard/patients']  = 'cpanel/patients';
 $route['dashboard/patients/register']  = 'cpanel/patients/register';
 $route['dashboard/patients/edit/(:num)']  = 'cpanel/patients/edit/$1';
 $route['dashboard/patients/update']  = 'cpanel/patients/update';
+$route['dashboard/patients/updateImage']  = 'cpanel/patients/updateImage';
 $route['dashboard/patients/delete/(:any)']  = 'cpanel/patients/delete/$1';
 
 

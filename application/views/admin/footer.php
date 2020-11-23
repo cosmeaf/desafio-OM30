@@ -1,14 +1,14 @@
  
 
-  <!-- Footer -->
-  <footer class="sticky-footer bg-white">
-    <div class="container my-auto">
-      <div class="copyright text-center my-auto">
-        <span>Copyright &copy; Your Website 2019</span>
-      </div>
+<!-- Footer -->
+<footer class="sticky-footer bg-white">
+  <div class="container my-auto">
+    <div class="copyright text-center my-auto">
+      <span>Copyright &copy; Your Website 2019</span>
     </div>
-  </footer>
-  <!-- End of Footer -->
+  </div>
+</footer>
+<!-- End of Footer -->
 
 </div>
 <!-- End of Content Wrapper -->
@@ -73,6 +73,22 @@
       <script src="<?=$src?>"></script>
     <?php }
   } ?>
+
+
+  <script>
+    function abreModal() {
+     $("#modalDanger").modal({
+      show: true
+    });
+   }
+   setTimeout(abreModal, 3000);
+   function abreModal() {
+     $("#modalSuccess").modal({
+      show: true
+    });
+   }
+   setTimeout(abreModal, 1000);
+ </script>
 </body>
 
 </html>

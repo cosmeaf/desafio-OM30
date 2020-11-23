@@ -28,12 +28,14 @@
                    <tr>
                     <th>Number of version</th>
                     <th>Status Version</th>
+                    <th>Action</th>
                   </tr>
                 </thead>
                 <tfoot>
                  <tr>
                    <th>Number of version</th>
                    <th>Status Version</th>
+                     <th>Action</th>
                  </tr>
                </tfoot>
                <tbody>
@@ -42,6 +44,7 @@
                     <tr>
                       <td><?= $row['version']; ?></td>
                       <td><?= ($row['version'] == 1) ? "Default Version " : "Installed patient table version" ?></td>
+                      <td><a href=" <?= base_url();?>migrate" class="btn btn-primary btn-sm"><i class="fas fa-play-circle"></i></a></td>
                     </tr>
                   <?php endforeach; ?>
                   <?php else: ?>

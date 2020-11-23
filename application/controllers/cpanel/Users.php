@@ -6,6 +6,7 @@ class Users extends CI_Controller {
 
 	public function __construct(){
 		parent::__construct();
+		//$this->output->enable_profiler(TRUE);
 		$this->load->model('users_model');
 		$this->logged_in();
 		$data = array(
@@ -61,16 +62,12 @@ class Users extends CI_Controller {
 	}
 
 	public function update() {
-		$image = $this->do_upload();
 		//echo "<pre>";var_dump($image);die();
 		$this->form_validation->set_rules('id', 'id', 'trim|min_length[1]|max_length[10]');
 		$this->form_validation->set_rules('name', 'name', 'trim|min_length[5]|max_length[50]');
 		$this->form_validation->set_rules('email', 'email', 'trim|valid_emails|valid_email');
 		$this->form_validation->set_rules('role_id', 'Grupo', 'trim');
 		$this->form_validation->set_rules('is_active', 'Status', 'trim');
-		$this->form_validation->set_rules('password', 'password', 'trim|min_length[6]|matches[password]', ['matches' => 'Password não confere!', 'min_length' => 'Password muito curto']);
-		$this->form_validation->set_rules('passconf', 'repeat password', 'trim|matches[password]', ['matches' => 'Password não confere!']);
-		$this->form_validation->set_rules('imagem', 'imagem');
 		$this->form_validation->set_error_delimiters('<div class="error text-danger" style="font-size:12px;">', '</div>');
 
 		if ($this->form_validation->run() == FALSE) {
@@ -78,12 +75,44 @@ class Users extends CI_Controller {
 			$this->admin->show('admin/edit_users');
 		} else {
 			$id = html_escape($this->input->post('id'));
-			//echo "<pre>";var_dump($image);die();
-			$this->users_model->update($id, $image);
-			$this->session->set_flashdata('success', 'Paciente Atualizado com sucesso');
+			$this->users_model->update($id);
+			$this->session->set_flashdata('success', 'Dados Atualizado com sucesso');
 			redirect('dashboard/users');
 		}
+	}
 
+	public function updatePassword(){
+				//echo "<pre>";var_dump($image);die();
+		$this->form_validation->set_rules('id', 'id', 'trim|min_length[1]|max_length[10]');
+		$this->form_validation->set_rules('password', 'password', 'trim|min_length[6]|matches[password]', ['matches' => 'Password não confere!', 'min_length' => 'Password muito curto']);
+		$this->form_validation->set_rules('passconf', 'repeat password', 'trim|matches[password]', ['matches' => 'Password não confere!']);
+		$this->form_validation->set_error_delimiters('<div class="error text-danger" style="font-size:12px;">', '</div>');
+
+		if ($this->form_validation->run() == FALSE) {
+			$this->session->set_flashdata('danger', validation_errors());
+			$this->admin->show('admin/edit_users');
+		} else {
+			$this->users_model->updatePassword($id);
+			$this->session->set_flashdata('success', 'Password Atualizado com sucesso');
+			redirect('dashboard/users');
+		}
+	}
+
+	public function updateImage(){
+		$image = $this->do_upload();
+		$this->form_validation->set_rules('id', 'id', 'trim|required');
+		$this->form_validation->set_rules('imagem', 'imagem');
+		$this->form_validation->set_error_delimiters('<div class="error text-danger" style="font-size:12px;">', '</div>');
+		if ($this->form_validation->run() == FALSE) {
+			$this->session->set_flashdata('danger', validation_errors());
+			$this->admin->show('admin/edit_users');
+		} else {
+			//echo "<pre>";var_dump($image);die();
+			$id = html_escape($this->input->post('id'));
+			$this->users_model->updateImage($id, $image);
+			$this->session->set_flashdata('success', 'Foto Atualizado com sucesso');
+			redirect('dashboard/users');
+		}
 	}
 
 	public function delete($id){
@@ -98,9 +127,6 @@ class Users extends CI_Controller {
 	}
 
 	private function do_upload(){
-	/*	$post = $_FILES['imagem']['name'];
-		$post = $this->input->post(null, TRUE);
-		echo "<pre>";var_dump($post);*/
 		$config['upload_path'] =  './assets/img';
 		$config['allowed_types'] = 'gif|jpg|png|jpeg|JPEG|JPG|PNG|GIF';
 		$config['max_size'] = 0;
@@ -131,23 +157,6 @@ class Users extends CI_Controller {
 		}
 	}
 
-	public function foto(){
-		$config['upload_path'] = './uploads/';
-		$config['allowed_types'] = 'gif|jpg|png';
-		$config['max_size']  = '100';
-		$config['max_width']  = '1024';
-		$config['max_height']  = '768';
-		
-		$this->load->library('upload', $config);
-		
-		if ( ! $this->upload->do_upload()){
-			$error = array('error' => $this->upload->display_errors());
-		}
-		else{
-			$data = array('upload_data' => $this->upload->data());
-			echo "success";
-		}
-	}
 
 } // End Controller Users
 

@@ -64,7 +64,7 @@
                       <td><?= $row['name']; ?></td>
                       <td><?= $row['email']; ?></td>
                       <td><?= ($row['role_id'] == 1) ? 'Administrador' : 'Funcionário' ?></td>
-                      <td><?= ($row['is_active'] == 1)? 'Ativo' : 'Inativo' ?></td>
+                      <td><?= ($row['is_active'] == 1)? '<a href="#" class="badge badge-success">Ativo</a>' : '<a href="#" class="badge badge-danger">Inativo</a>' ?></td>
                       <td><?= data('d/m/Y',$row['created_at'] ); ?></td>
                       <td>
                         <?php if ($row['role_id'] == 1): ?>

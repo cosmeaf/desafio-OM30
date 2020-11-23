@@ -40,6 +40,7 @@ class Auth extends CI_Controller {
 							'name' => $user['name'],
 							'email' => $user['email'],
 							'role_id' => $user['role_id'],
+							'image' => $user['image'],
 							'authenticated' => TRUE
 						);
 						//echo "<pre>";print_r($sessdata);

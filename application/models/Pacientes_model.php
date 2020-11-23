@@ -26,7 +26,7 @@ class Pacientes_model extends CI_Model {
 			'celular' => html_escape($this->input->post('celular')),
 			'telefone' => html_escape($this->input->post('telefone')),
 			'recado' => html_escape($this->input->post('recado')),
-			'imagem' => html_escape($this->input->post('imagem'))
+			'imagem' => 'default.png'
 		];
 		$this->db->insert($this->table, $data);
 		$insert_id = $this->db->insert_id();
@@ -59,8 +59,7 @@ class Pacientes_model extends CI_Model {
 			'email' => html_escape($this->input->post('email')),
 			'celular' => html_escape($this->input->post('celular')),
 			'telefone' => html_escape($this->input->post('telefone')),
-			'recado' => html_escape($this->input->post('recado')),
-			'imagem' => html_escape($this->input->post('imagem'))
+			'recado' => html_escape($this->input->post('recado'))
 		];
 		//echo "<pre>";print_r($data);die();
 		$this->db->where('id', $id);
@@ -72,9 +71,23 @@ class Pacientes_model extends CI_Model {
 		$this->db->delete($this->table);
 	}
 
-	function uploadImage(){
-		
-	}
+	function updateImage($id, $image){
+		if (empty($image)) {
+			$image = 'default.png';
+		}
+		if (empty($id)) {
+
+		}else{
+			$data = [ 
+				'id' => $id,
+				'imagem' => $image
+			];
+			//echo "<pre>";var_dump($image);die();
+			$this->db->where('id', $id);
+			$this->db->update($this->table, $data); 
+		}
+	}	
+
 	
 }
 
